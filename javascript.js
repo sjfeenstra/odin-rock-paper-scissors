@@ -1,7 +1,3 @@
-// get computer choice
-// get random item from list [Rock, paper, scissors]
-// return random item
-
 const possibilities = ["ROCK", "PAPER", "SCISSORS"];
 let humanChoice = "";
 let humanScore = 0;
@@ -73,14 +69,3 @@ function playGame() {
 }
 
 playGame();
-
-// request user input on rock paper or scissors
-// check if input is correct
-// if not request new answer
-
-// compare the inputs to decide a winner
-// if inputs are equal draw
-// if rock and paper, paper wins
-// if rock and scissors, rock wins
-// if paper and scissors, scissors wins
-// if paper and
