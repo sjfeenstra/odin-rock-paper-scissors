@@ -9,63 +9,66 @@ function getComputerChoice(possibilities) {
 }
 
 function playRound(humanChoice, computerChoice) {
+  let message = document.querySelector(".message")
   if (humanChoice == computerChoice) {
-    console.log("Draw");
+    message.textContent = "DRAW"
     return;
   }
   switch (humanChoice) {
     case "ROCK":
       if (computerChoice == "PAPER") {
-        console.log("You lose Paper beats Rock");
+        message.textContent = "You lose Paper beats Rock";
         computerScore++;
       } else {
-        console.log("You win Rock beats Scissors");
+        message.textContent = "You win Rock beats Scissors";
         humanScore++;
       }
       break;
     case "PAPER":
       if (computerChoice == "SCISSORS") {
-        console.log("You lose Scissors beats Paper");
+        message.textContent = "You lose Scissors beats Paper";
         computerScore++;
       } else {
-        console.log("You win Paper beats Rock");
+        message.textContent = "You win Paper beats Rock";
         humanScore++;
       }
       break;
     case "SCISSORS":
       if (computerChoice == "ROCK") {
-        console.log("You lose Rock beats Scissors");
+        message.textContent = "You lose Rock beats Scissors";
         computerScore++;
       } else {
-        console.log("You win Scissors beats Paper");
+        message.textContent = "You win Scissors beats Paper";
         humanScore++;
       }
       break;
   }
 }
 
-function playGame() {
-  gameNumber = 1;
-  while (gameNumber <= 5) {
-    while (!possibilities.includes(humanChoice)) {
-      humanChoice = prompt(
-        `Choose between ROCK, PAPER and SCISSORS? (Game ${gameNumber})`
-      );
-    }
+function reset(){
+  humanScore = 0;
+  computerScore =0;
+}
 
-    let computerChoice = getComputerChoice(possibilities).toUpperCase();
+function updateScores(humanScore,computerScore){
+  let humanScoreElement = document.querySelector(".humanScore")
+  let computerScoreElement = document.querySelector(".computerScore")
+  let message = document.querySelector(".message")
 
-    playRound(humanChoice, computerChoice);
-    gameNumber++;
-    humanChoice = "";
+  humanScoreElement.textContent = "Human Score: " + humanScore
+  computerScoreElement.textContent = "Computer Score: " + computerScore
+  if(humanScore == 5){
+    message.textContent = `Human wins with ${humanScore} to ${computerScore}`
+  } else if (computerScore == 5){
+    message.textContent = `Computer wins with ${computerScore} to ${humanScore}`
   }
-  if (humanScore > computerScore) {
-    console.log(`You win with ${humanScore} to ${computerScore}`);
-  } else if (computerScore > humanScore) {
-    console.log(`You lose with ${humanScore} to ${computerScore}`);
-  } else {
-    console.log(`You draw with ${humanScore} to ${computerScore}`);
+  if(humanScore == 5 || computerScore == 5){
+    reset()
   }
 }
 
-playGame();
+let buttons = document.querySelector(".buttons")
+buttons.addEventListener('click',(event)=>{
+  playRound(event.target.id, getComputerChoice(possibilities))
+  updateScores(humanScore, computerScore)
+})
